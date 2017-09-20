@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-size: 62.5%;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1024px;
+}
+
+.triangle-generator {
+    height: 100vh;
+    font-size: 1.6rem;
+}
+
+.triangle-generator__title {
+    background: #00bcd4;
+    color: #fff;
+    height: 10vh;
+    line-height: 10vh;
+    margin: 0;
+    text-align: center;
+}
+
+.triangle-generator__inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.triangle-generator__settings,
+.triangle-generator__result {
+    width: 50%;
+}
+
+.triangle-wrapper {
+    background: #eee url('grid.png');
+    height: 45vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.triangle {
+    transition: all 0.2s;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+textarea {
+    background: #eee;
+    border: 1px solid #eee;
+    display: block;
+    height: 200px;
+    padding: 10px;
+    resize: vertical;
+    width: 100%;
+}
