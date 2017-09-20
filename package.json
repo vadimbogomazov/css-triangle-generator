@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gh-pages": "^1.0.0",
     "normalize": "^0.3.1",
     "normalize.css": "^7.0.0",
     "react": "^15.6.1",
@@ -14,9 +15,12 @@
     "react-scripts": "1.0.7"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "homepage": "http://vadimbogomazov.github.io/css-triangle-generator"
 }
