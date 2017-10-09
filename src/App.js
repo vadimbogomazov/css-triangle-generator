@@ -114,6 +114,14 @@ class App extends Component {
     this.updateCss();
   }
 
+  componentWillUpdate() {
+    if (this.state.copied) {
+      this.setState({
+        copied: false
+      });
+    }
+  }
+
   updateSettings(field, value) {
     this.setState({ [field]: value }, () => {
       switch (field) {
@@ -427,48 +435,55 @@ class App extends Component {
   render() {
     return (
       <div className="triangle-generator">
-        <h1 className="triangle-generator__title">CSS Triangle Generator</h1>
+        <header className="triangle-generator__header">
+          <h1 className="triangle-generator__title">CSS Triangle Generator</h1>
+        </header>
 
-        <div className="container">
-          <div className="triangle-generator__inner">
-            <div className="triangle-generator__settings">
+        <main className="triangle-generator__content">
+          <div className="container">
+            <div className="triangle-generator__inner">
+              
               <Settings
                 directions={ this.props.directions }
                 types={ this.props.types }
-
+  
                 direction={ this.state.direction }
                 type={ this.state.type }
                 color={ this.state.color }
                 width={ this.state.width }
                 height={ this.state.height }
-
+  
                 widthLeft={ this.state.widthLeft }
                 widthRight={ this.state.widthRight }
                 heightTop={ this.state.heightTop }
                 heightBottom={ this.state.heightBottom }
-
+  
                 handleChangeColor={ this.handleChangeColor }
                 updateSettings={ this.updateSettings }
-
+  
                 settings={ this.settings }
                 changeSetup={ this.changeSetup }
                 changeSize={ this.changeSize }
                 updateCss={ this.updateCss }
               />
-            </div>
-
-            <div className="triangle-generator__result">
-              <Triangle output={ this.state.output } />
-
-              <Output
-                output={ this.state.output }
-                copied={ this.state.copied }
-                handleFocus={ this.handleFocus }
-                handleCopy={ this.handleCopy }
-              />
+  
+              <div className="triangle-generator__result">
+                <Triangle output={ this.state.output } />
+  
+                <Output
+                  output={ this.state.output }
+                  copied={ this.state.copied }
+                  handleFocus={ this.handleFocus }
+                  handleCopy={ this.handleCopy }
+                />
+              </div>
             </div>
           </div>
-        </div>
+        </main>
+
+        <footer className="triangle-generator__footer">
+          <div className="container">&copy; 2017</div>
+        </footer>
       </div>
     );
   }

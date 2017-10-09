@@ -6,13 +6,13 @@ import Field from '../Field/Field';
 
 const Settings = (props) => {
   return (
-  <div>
+  <div className="triangle-generator__settings">
     <section className="section">
       <h3 className="section__title">Direction</h3>
       <p>{ capitalizeFirstLetter(splitCamelCase(props.direction)) }</p>
       {
         props.directions.map((direction, index) => {
-          return <div key={ index }>
+          return <span key={ index }>
             <input
               type="radio"
               name="direction"
@@ -22,33 +22,35 @@ const Settings = (props) => {
               onChange={ (e) => props.updateSettings('direction', e.currentTarget.value) }
             />
             <label htmlFor={ direction }>{ capitalizeFirstLetter(splitCamelCase(direction)) }</label>
-          </div>
+          </span>
         })
       }
     </section>
 
     <section className="section">
       <h3 className="section__title">Type</h3>
-      {
-        props.types.map((type, index) => {
-          if (type === 'equilateral' && props.settings.disableEquilateral) {
-            return false;
-          }
+      <div className="section__row">
+        {
+          props.types.map((type, index) => {
+            if (type === 'equilateral' && props.settings.disableEquilateral) {
+              return false;
+            }
 
-          return <span key={ index }>
-            <input
-              type="radio"
-              name="type"
-              id={ type }
-              value={ type }
-              checked={ type === props.type }
-              onChange={ (e) => props.updateSettings('type', e.target.value) }
-            />
+            return <span key={ index } className="section__column">
+              <input
+                type="radio"
+                name="type"
+                id={ type }
+                value={ type }
+                checked={ type === props.type }
+                onChange={ (e) => props.updateSettings('type', e.target.value) }
+              />
 
-            <label htmlFor={ type }>{ type }</label>
-          </span>
-        })
-      }
+              <label htmlFor={ type }>{ type }</label>
+            </span>
+          })
+        }
+      </div>
     </section>
 
     <section className="section">

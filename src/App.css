@@ -1,3 +1,7 @@
+/* MAIN */
+
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:regular&subset=latin,latin-ext');
+
 * {
     box-sizing: border-box;
 }
@@ -7,10 +11,30 @@ body {
     font-size: 62.5%;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'PT Sans', sans-serif;
+}
+
+label {
+  cursor: pointer;
+  user-select: none;
+}
+
 .container {
     margin-left: auto;
     margin-right: auto;
     max-width: 1024px;
+}
+
+.section__row {
+    display: flex;
+    max-width: 75%;
+}
+
+.section__column {
+    width: 33.33333333333333%;
 }
 
 .triangle-generator {
@@ -18,24 +42,42 @@ body {
     font-size: 1.6rem;
 }
 
-.triangle-generator__title {
-    background: #00bcd4;
-    color: #fff;
-    height: 10vh;
-    line-height: 10vh;
-    margin: 0;
-    text-align: center;
+.triangle-generator__content {
+    padding-bottom: 2rem;
 }
 
 .triangle-generator__inner {
     display: flex;
     justify-content: space-between;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
 }
 
 .triangle-generator__settings,
 .triangle-generator__result {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     width: 50%;
 }
+
+/* HEADER */
+
+.triangle-generator__header {
+    align-items: center;
+    background: #00bcd4;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    min-height: 10vh;
+    overflow: hidden;
+    text-align: center;
+}
+
+.triangle-generator__title {
+    margin: 0;
+}
+
+/* TRIANGLE */
 
 .triangle-wrapper {
     background: #eee url('grid.png');
@@ -52,12 +94,64 @@ body {
     transform: translate(-50%, -50%);
 }
 
-textarea {
+/* OUTPUT */
+
+.triangle-output {
+    text-align: center;
+}
+
+.triangle-output__title {
+    text-align: left;
+}
+
+.triangle-output__textarea {
     background: #eee;
     border: 1px solid #eee;
     display: block;
-    height: 200px;
-    padding: 10px;
+    height: 20rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
     resize: vertical;
     width: 100%;
+}
+
+.triangle-output__btn {
+    border-color: #326e99;
+    background-color: #3f8abf;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 0 0 0.3rem;
+    box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+    color: #fff;    
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-block;
+    font-style: normal;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    transition: all 200ms ease-in-out 0s;
+    white-space: nowrap;    
+    font-weight: 700;   
+    padding: 0.9rem 0.8rem 0.8rem;
+    font-size: 1.8rem;
+}
+
+.triangle-output__btn:hover,
+.triangle-output__btn:focus,
+.triangle-output__btn:active {
+    background-color: #397cac;
+    border-color: #326e99;
+}
+
+/* FOOTER */
+
+.triangle-generator__footer {
+    background: #00bcd4;
+    color: #fff;
+    height: 10vh;
+    line-height: 10vh;
+    margin: 0;
+    text-align: center;
 }
