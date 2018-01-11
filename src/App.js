@@ -17,6 +17,7 @@ class App extends Component {
     this.handleFocus = this.handleFocus.bind(this);
     this.changeSize = this.changeSize.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
+    this.togglePseudo = this.togglePseudo.bind(this);
 
     this.lengthDirection = {
       top: {
@@ -85,9 +86,7 @@ class App extends Component {
       size: {}
     };
 
-    this.staticCSS = 'display: inline-block;\nwidth: 0;\nheight: 0;\nborder-style: solid;';
-
-    const width = 200,
+    const width = 100,
           height = 100,
           widthRight = width / 2,
           widthLeft = width / 2,
@@ -95,9 +94,10 @@ class App extends Component {
           heightBottom = height / 2;
 
     this.state = {
-      direction: 'top',
+      direction: 'topLeft',
       type: 'isosceles',
-      color: '#00bcd4',
+      color: '#3197ee',
+      hasPseudo: false,
       output: '',
       copied: false,
       width,
@@ -107,19 +107,13 @@ class App extends Component {
       heightTop,
       heightBottom,
     };
+
+    this.messageTimerId = null;
   }
 
   componentDidMount() {
     this.changeSetup();
     this.updateCss();
-  }
-
-  componentWillUpdate() {
-    if (this.state.copied) {
-      this.setState({
-        copied: false
-      });
-    }
   }
 
   updateSettings(field, value) {
@@ -135,12 +129,12 @@ class App extends Component {
           this.updateCss();
         break;
         case 'width':
-        this.changeSize('width');
-        this.updateCss();
+          this.changeSize('width');
+          this.updateCss();
         break;
         case 'height':
-        this.changeSize('height');
-        this.updateCss();
+          this.changeSize('height');
+          this.updateCss();
         break;
         case 'widthLeft':
         case 'widthRight':
@@ -175,16 +169,16 @@ class App extends Component {
     } else if (type === 'isosceles') {
       if (value === 'width') {
         this.setState({
-          height: this.state.width
-        });
+          height: this.state.width,
+        }, setStateCallback);
       } else if (value === 'height') {
         this.setState({
           width: this.state.height
-        });
+        }, setStateCallback);
       } else if (this.state.height !== this.state.width) {
         this.setState({
           height: this.state.width
-        });
+        }, setStateCallback);
       }
     }
 
@@ -194,10 +188,12 @@ class App extends Component {
         widthRight: this.state.width / 2,
         heightTop: this.state.height / 2,
         heightBottom: this.state.height / 2
-      });
+      }, setStateCallback);
     }
 
-    this.updateCss();
+    function setStateCallback() {
+      this.updateCss();
+    }
   }
 
   changeSetup() {
@@ -417,9 +413,9 @@ class App extends Component {
     borderWidth = Object.values(borderWidth).join(' ');
     borderColors = Object.values(borderColors).join(' ');
 
-    this.setState(
-      { output: `${ this.staticCSS }\nborder-width: ${ borderWidth };\nborder-color: ${ borderColors };` }
-    );
+    let output = `border-style: solid;\nborder-color: ${ borderColors };\nborder-width: ${ borderWidth };\ndisplay: inline-block;\nheight: 0;\nwidth: 0;`;
+
+    this.setState({ output: output });
   }
 
   handleFocus(e) {
@@ -427,8 +423,26 @@ class App extends Component {
   }
 
   handleCopy() {
+    const showMessageDuration = 2000;
+
     this.setState({
       copied: true
+    }, () => {
+      if (this.messageTimerId) {
+        clearTimeout(this.messageTimerId);
+      }
+
+      this.messageTimerId = setTimeout(() => {
+        this.setState({
+          copied: false
+        })
+      }, showMessageDuration);
+    });
+  }
+
+  togglePseudo() {
+    this.setState({
+      hasPseudo: !this.state.hasPseudo
     });
   }
 
@@ -473,17 +487,16 @@ class App extends Component {
                 <Output
                   output={ this.state.output }
                   copied={ this.state.copied }
+                  hasPseudo={ this.state.hasPseudo }
                   handleFocus={ this.handleFocus }
                   handleCopy={ this.handleCopy }
+                  togglePseudo={ this.togglePseudo }
+                  pseudo={ this.state.hasPseudo }
                 />
               </div>
             </div>
           </div>
         </main>
-
-        <footer className="triangle-generator__footer">
-          <div className="container">&copy; 2017</div>
-        </footer>
       </div>
     );
   }
@@ -501,8 +514,8 @@ App.defaultProps = {
     'left',
   ],
   types: [
-    'equilateral',
     'isosceles',
+    'equilateral',
     'scalene'
   ]
 }

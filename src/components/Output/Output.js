@@ -2,17 +2,37 @@ import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 const Output = (props) => {
+  let output;
+
+  if (props.hasPseudo) {
+    output = props.output.split('\n').map((item, i) => {
+        return `\t${ item }`;
+    }).join('\n');
+  } else {
+    output = props.output;
+  }
+
   return <div className="triangle-output">
     <h2 className="triangle-output__title">CSS</h2>
-    <textarea className="triangle-output__textarea" onFocus={ props.handleFocus } value={ props.output }></textarea>
 
-    <CopyToClipboard
-      text={ props.output }
-      onCopy={ props.handleCopy }>
-      <button className="triangle-output__btn">Copy to clipboard</button>
-    </CopyToClipboard>
+    <textarea className="triangle-output__textarea" onFocus={ props.handleFocus } value={ ((props.hasPseudo) ? ':after {\n' : '') + output + ((props.hasPseudo) ? '\n}' : '')}></textarea>
 
-    { props.copied ? <span className="triangle-output__msg">Copied!</span> : null }
+    <footer className="triangle-output__footer">
+      <div className="">
+        <CopyToClipboard
+          text={ output }
+          onCopy={ props.handleCopy }>
+          <button className="triangle-output__btn">Copy to clipboard</button>
+        </CopyToClipboard>
+
+        { props.copied ? <span className="triangle-output__msg">Copied!</span> : null }
+      </div>
+
+      <div>
+        <input type="checkbox" name="pseudo" id="pseudo" onChange={ props.togglePseudo } checked={ props.hasPseudo } />
+        <label htmlFor="pseudo">Pseudo selector</label>
+      </div>
+    </footer>
   </div>
 }
 

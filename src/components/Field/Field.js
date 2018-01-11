@@ -2,7 +2,7 @@ import React from 'react';
 import { capitalizeFirstLetter } from '../../helpers.js'
 
 const Field = (props) => {
-  return <div>
+  return <div className="size-table__cell">
     <label htmlFor={ props.name }>{ capitalizeFirstLetter(props.name) }</label>
     <input
       type="number"
