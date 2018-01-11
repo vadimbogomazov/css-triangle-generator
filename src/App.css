@@ -155,7 +155,7 @@ input[type="checkbox"] + label:before {
 }
 
 input[type="checkbox"]:checked + label:before {
-    background-image: url(/img/checked.svg);
+    background-image: url(img/checked.svg);
 }
 
 /* HEADER */
@@ -185,10 +185,6 @@ input[type="checkbox"]:checked + label:before {
   margin-top: 0;
 }
 
-.size-table {
-    /*display: table;*/
-}
-
 .size-table__row {
     display: flex;
     justify-content: space-between;
@@ -202,15 +198,11 @@ input[type="checkbox"]:checked + label:before {
 }
 
 .size-table__cell {
-    /*display: table-cell;*/
     display: flex;
+    flex-wrap: wrap;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     width: calc(33.33333333333333% - 0.5rem);
-}
-
-.size-table__cell label {
-    min-width: 5.5rem;
 }
 
 .size-table__cell input {
