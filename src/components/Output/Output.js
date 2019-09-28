@@ -1,11 +1,12 @@
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import { insertToArray } from '../../helpers.js'
 
 const Output = (props) => {
   let output;
 
   if (props.hasPseudo) {
-    output = props.output.split('\n').map((item, i) => {
+    output = insertToArray(props.output.split('\n'), 3, "content: '';").map((item, i) => {
         return `\t${ item }`;
     }).join('\n');
   } else {

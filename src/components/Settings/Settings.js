@@ -9,7 +9,6 @@ const Settings = (props) => {
   <div className="triangle-generator__settings">
     <section className="section">
       <h2 className="section__title">Direction</h2>
-      {/*<p>{ capitalizeFirstLetter(splitCamelCase(props.direction)) }</p>*/}
       <div className="direction-table">
         {
           props.directions.map((direction, index) => {

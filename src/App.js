@@ -310,6 +310,8 @@ class App extends Component {
     const heightTop = this.state.heightTop;
     const heightBottom = this.state.heightBottom;
 
+    const pseudo = this.state.hasPseudo;
+
     let currentDirection = this.lengthDirection[direction];
     let borderColors = {
       'top': 'transparent',
@@ -413,6 +415,8 @@ class App extends Component {
     borderWidth = Object.values(borderWidth).join(' ');
     borderColors = Object.values(borderColors).join(' ');
 
+    console.log(pseudo);
+
     let output = `border-style: solid;\nborder-color: ${ borderColors };\nborder-width: ${ borderWidth };\ndisplay: inline-block;\nheight: 0;\nwidth: 0;`;
 
     this.setState({ output: output });
@@ -491,6 +495,7 @@ class App extends Component {
                   handleFocus={ this.handleFocus }
                   handleCopy={ this.handleCopy }
                   togglePseudo={ this.togglePseudo }
+                  updateCss={ this.updateCss }
                   pseudo={ this.state.hasPseudo }
                 />
               </div>
